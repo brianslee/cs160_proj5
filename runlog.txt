@@ -1,0 +1,245 @@
+python3 genast.py -i lang.def -o ast
+g++  -c -o ast.o ast.cpp
+bison -d -v -o parser.cpp parser.y
+g++  -c -o parser.o parser.cpp
+flex -o lexer.cpp lexer.l
+g++  -c -o lexer.o lexer.cpp
+g++  -c -o typecheck.o typecheck.cpp
+g++  -c -o main.o main.cpp
+g++ -o lang ast.o parser.o lexer.o typecheck.o main.o
+./lang < tests/0.good.lang:
+syntax error, unexpected T_OPEN_BRACKET, expecting T_OPEN_PAREN or T_ASSIGNMENT or T_DOT at line 8
+
+./lang < tests/1.good.lang:
+invalid character at line 8
+
+./lang < tests/2.good.lang:
+ClassTable {
+  Main -> {
+    VariableTable {},
+    MethodTable {
+      main -> {
+        None,
+        12,
+        VariableTable {
+          local0 -> {Boolean, -4, 4},
+          local1 -> {Integer, -8, 4},
+          local2 -> {Boolean, -12, 4}
+        }
+      }
+    }
+  }
+}
+
+./lang < tests/3.good.lang:
+invalid character at line 9
+
+./lang < tests/4.good.lang:
+ClassTable {
+  Main -> {
+    VariableTable {},
+    MethodTable {
+      main -> {
+        None,
+        4,
+        VariableTable {
+          local0 -> {Integer, -4, 4}
+        }
+      }
+    }
+  }
+}
+
+./lang < tests/5.good.lang:
+ClassTable {
+  Main -> {
+    VariableTable {},
+    MethodTable {
+      main -> {
+        None,
+        8,
+        VariableTable {
+          local0 -> {Integer, -4, 4},
+          local1 -> {Integer, -8, 4}
+        }
+      }
+    }
+  }
+}
+
+./lang < tests/6.good.lang:
+ClassTable {
+  Main -> {
+    VariableTable {},
+    MethodTable {
+      main -> {
+        None,
+        12,
+        VariableTable {
+          local0 -> {Integer, -4, 4},
+          local1 -> {Integer, -8, 4},
+          local2 -> {Integer, -12, 4}
+        }
+      }
+    }
+  }
+}
+
+./lang < tests/7.good.lang:
+ClassTable {
+  Main -> {
+    VariableTable {},
+    MethodTable {
+      main -> {
+        None,
+        0,
+        VariableTable {}
+      }
+    }
+  }
+}
+
+./lang < tests/8.good.lang:
+ClassTable {
+  Main -> {
+    VariableTable {},
+    MethodTable {
+      main -> {
+        None,
+        4,
+        VariableTable {
+          local0 -> {Integer, -4, 4}
+        }
+      }
+    }
+  }
+}
+
+./lang < tests/9.good.lang:
+ClassTable {
+  Main -> {
+    VariableTable {},
+    MethodTable {
+      main -> {
+        None,
+        8,
+        VariableTable {
+          local0 -> {Boolean, -4, 4},
+          local1 -> {Boolean, -8, 4}
+        }
+      }
+    }
+  }
+}
+
+./lang < tests/10.good.lang:
+invalid character at line 12
+
+./lang < tests/11.good.lang:
+invalid character at line 6
+
+./lang < tests/12.good.lang:
+invalid character at line 5
+
+./lang < tests/13.good.lang:
+invalid character at line 4
+
+./lang < tests/14.good.lang:
+invalid character at line 4
+
+./lang < tests/15.good.lang:
+invalid character at line 4
+
+./lang < tests/16.good.lang:
+invalid character at line 6
+
+./lang < tests/17.good.lang:
+invalid character at line 6
+
+./lang < tests/18.good.lang:
+invalid character at line 13
+
+./lang < tests/19.good.lang:
+invalid character at line 11
+
+./lang < tests/20.good.lang:
+invalid character at line 4
+
+./lang < tests/21.good.lang:
+invalid character at line 13
+
+./lang < tests/22.good.lang:
+invalid character at line 9
+
+./lang < tests/0.bad.lang:
+invalid character at line 4
+
+./lang < tests/1.bad.lang:
+invalid character at line 8
+
+./lang < tests/2.bad.lang:
+invalid character at line 6
+
+./lang < tests/3.bad.lang:
+invalid character at line 8
+
+./lang < tests/4.bad.lang:
+invalid character at line 4
+
+./lang < tests/5.bad.lang:
+invalid character at line 9
+
+./lang < tests/6.bad.lang:
+invalid character at line 9
+
+./lang < tests/7.bad.lang:
+invalid character at line 5
+
+./lang < tests/8.bad.lang:
+invalid character at line 7
+
+./lang < tests/9.bad.lang:
+invalid character at line 6
+
+./lang < tests/10.bad.lang:
+invalid character at line 5
+
+./lang < tests/11.bad.lang:
+invalid character at line 4
+
+./lang < tests/12.bad.lang:
+invalid character at line 4
+
+./lang < tests/13.bad.lang:
+invalid character at line 7
+
+./lang < tests/14.bad.lang:
+invalid character at line 5
+
+./lang < tests/15.bad.lang:
+invalid character at line 7
+
+./lang < tests/16.bad.lang:
+invalid character at line 5
+
+./lang < tests/17.bad.lang:
+invalid character at line 4
+
+./lang < tests/18.bad.lang:
+invalid character at line 18
+
+./lang < tests/19.bad.lang:
+invalid character at line 9
+
+./lang < tests/20.bad.lang:
+invalid character at line 7
+
+./lang < tests/21.bad.lang:
+invalid character at line 18
+
+./lang < tests/22.bad.lang:
+invalid character at line 6
+
+./lang < tests/23.bad.lang:
+invalid character at line 9
+
